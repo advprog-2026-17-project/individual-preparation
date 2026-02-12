@@ -1,0 +1,26 @@
+package com.example.individualprep.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class VectorUtilityTest {
+
+    private final VectorUtility vectorUtility  = new VectorUtility ();
+
+    @Test
+    void testSubtractSuccess() {
+        double[] v1 = {5.0, 10.0, 15.0};
+        double[] v2 = {2.0, 3.0, 4.0};
+        double[] expected = {3.0, 7.0, 11.0};
+
+        assertArrayEquals(expected, vectorUtility.subtract(v1, v2));
+    }
+
+    @Test
+    void testSubtractDifferentLength() {
+        double[] v1 = {1.0, 2.0};
+        double[] v2 = {1.0, 2.0, 3.0};
+
+        assertThrows(IllegalArgumentException.class, () -> vectorUtility.subtract(v1, v2));
+    }
+}
