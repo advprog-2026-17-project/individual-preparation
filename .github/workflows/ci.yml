@@ -24,23 +24,19 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Chache SonarCloud packages
+      - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
-          key: sonar-${{ runner.os }}-${{ hashFiles('**/sonar-project.properties') }}
-          restore-keys: |
-            sonar-${{ runner.os }}-
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper/
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x ./gradlew
@@ -49,12 +45,7 @@ jobs:
         run: ./gradlew clean build check --info
       
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-          args: >
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.projectKey=advprog-2026-B17-project_individual-preparation
-            -Dsonar.organization=advprog-2026-b17-project
-            -Dsonar.host.url=https://sonarcloud.io
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonar --info
