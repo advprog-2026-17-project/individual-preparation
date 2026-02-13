@@ -3,7 +3,7 @@ name: Java Continuous Integration using Gradle, Linter, and SonarCloud
 ## Run CI jobs on all branches by default
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "chore/ci-setup-raymundo"]
   pull_request:
     branches: ["main"]
 
