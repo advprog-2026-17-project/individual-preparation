@@ -23,4 +23,21 @@ public class VectorUtilityTest {
 
         assertThrows(IllegalArgumentException.class, () -> vectorUtility.subtract(v1, v2));
     }
+
+    @Test
+    void testMultiplySuccess() {
+        double[] v1 = {1.0, 1.0, 1.0};
+        int x = 2;
+        double[] expected = {2.0, 2.0, 2.0};
+
+        assertArrayEquals(expected, vectorUtility.multiply(v1, x));
+    }
+
+    @Test
+    void testNullVector() {
+        double[] v1 = null;
+        int x = 0;
+
+        assertThrows(IllegalArgumentException.class, () -> vectorUtility.multiply(v1, x));
+    }
 }
