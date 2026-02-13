@@ -47,10 +47,20 @@ public class VectorUtility {
         }
         return result;
     }
-    
+
     public double dotProduct(double[] v1, double[] v2) {
-        // TODO: Implement me properly!
-        return 0.0;
+        if (v1 == null || v2 == null) {
+            throw new IllegalArgumentException("Vektor tidak boleh null!");
+        }
+        if (v1.length != v2.length) {
+            throw new IllegalArgumentException("Dimensi kedua vektor harus sama!");
+        }
+
+        double result = 0.0;
+        for (int index = 0; index < v1.length; index++) {
+            result += v1[index] * v2[index];
+        }
+        return result;
     }
     
     public double norm(double[] v1) {
